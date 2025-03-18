@@ -9,5 +9,3 @@ export const KOR_CATEGORY = {
   BEVERAGE: '음료',
   DESSERT: '디저트',
 };
-
-export const MENU_QUERY_KEY = ['menu'];

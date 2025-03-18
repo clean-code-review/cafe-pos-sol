@@ -1,7 +1,8 @@
 import { _1분, _3분 } from '@saul-atomrigs/hangeul';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMenuAPI, type Category, type MenuItem } from '~/remotes';
-import { CATEGORY, KOR_CATEGORY, MENU_QUERY_KEY } from './constants';
+import { CATEGORY, KOR_CATEGORY } from './constants';
+import { QUERY_KEYS } from '~/constants';
 
 export interface MenuSection {
   title: string;
@@ -10,7 +11,7 @@ export interface MenuSection {
 
 export const useMenuQuery = () =>
   useSuspenseQuery({
-    queryKey: MENU_QUERY_KEY,
+    queryKey: [QUERY_KEYS.MENU],
     queryFn: getMenuAPI,
     gcTime: _1분,
     staleTime: _3분,
