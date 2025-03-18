@@ -18,8 +18,7 @@ import { OrderProvider } from './features/order/context';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
-      refetchOnWindowFocus: false,
+      throwOnError: true,
     },
   },
 });
