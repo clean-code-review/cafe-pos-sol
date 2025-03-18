@@ -2,29 +2,12 @@ import { List, Txt } from '@saul-atomrigs/design-system';
 import { krw } from '@saul-atomrigs/hangeul';
 import type { CartItem } from '../context';
 import OrderAmountInput from './order-amount-input';
+import { calculateItemPrice } from '../utils';
 
 export function CartList({ items }: { items: CartItem[] }) {
   if (items.length === 0) {
     return <p>장바구니가 비어있습니다.</p>;
   }
-
-  // Helper function to calculate total item price including options
-  const calculateItemPrice = (cartItem: CartItem) => {
-    const { item, selectedOptions } = cartItem;
-    let totalPrice = item.price;
-
-    if (selectedOptions && item.optionGroups) {
-      item.optionGroups.forEach((group) => {
-        group.options.forEach((option) => {
-          if (selectedOptions.has(option.name) && option.price) {
-            totalPrice += option.price;
-          }
-        });
-      });
-    }
-
-    return totalPrice;
-  };
 
   return (
     <List direction='vertical'>
