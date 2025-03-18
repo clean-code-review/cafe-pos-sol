@@ -19,9 +19,9 @@ export const useMenuQuery = () =>
 
 export const useMenuSection = (category?: Category) => {
   const { data: menuItems } = useMenuQuery();
-  const filteredItems = !category
-    ? menuItems
-    : menuItems.filter((item) => item.category === category);
+  const filteredItems = category
+    ? menuItems.filter((item) => item.category === category)
+    : menuItems;
 
   let title = KOR_CATEGORY.ALL;
   if (category) {
