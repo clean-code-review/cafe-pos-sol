@@ -122,7 +122,7 @@ export function getOrders() {
 }
 
 export function getOrder(id: string) {
-  return orders.find((order) => order.id === id);
+  return orders.getValue().find((order) => order.id === id);
 }
 
 export function createOrder(order: Omit<Order, 'id' | 'timestamp'>) {
