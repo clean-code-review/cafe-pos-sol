@@ -2,7 +2,7 @@ import { _1분, _3분 } from '@saul-atomrigs/hangeul';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMenuAPI, type Category, type MenuItem } from '~/remotes';
 import { CATEGORY, KOR_CATEGORY } from './constants';
-import { QUERY_KEYS } from '~/constants';
+import { QUERY_KEYS } from '~/mocks/constants';
 
 export interface MenuSection {
   title: string;
