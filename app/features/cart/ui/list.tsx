@@ -18,7 +18,7 @@ export function CartList({ items }: { items: CartItem[] }) {
 
         return (
           <div
-            key={`${id}-${Array.from(selectedOptions || []).join('-')}`}
+            key={id}
             style={{
               display: 'flex',
               flexDirection: 'column',
