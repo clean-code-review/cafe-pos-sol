@@ -15,12 +15,7 @@ export default function OrderAmountInput({
   const { cartItems, addToCart, updateQuantity } = useCartContext();
   const cartItem = cartItems.find((cartItem) => cartItem.item.id === item.id);
 
-  const amount =
-    value !== undefined
-      ? value
-      : cartItem
-      ? cartItem.quantity
-      : DEFAULT_QUANTITY;
+  const amount = value ?? cartItem?.quantity ?? DEFAULT_QUANTITY;
 
   const handleIncrement = () => {
     const newAmount = amount + 1;
