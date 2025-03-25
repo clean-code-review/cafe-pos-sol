@@ -41,7 +41,6 @@ export function useOptions(menuItem: MenuItem) {
   const totalItemPrice = menuItem ? menuItem.price + optionPrice : 0;
 
   return {
-    menuItem,
     selectedOptions,
     toggleOption,
     totalItemPrice,
