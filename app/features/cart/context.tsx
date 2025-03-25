@@ -42,26 +42,38 @@ export function CartProvider({ children }: PropsWithChildren) {
     undefined
   );
 
+  const findCartItem = (
+    cartItems: CartItem[],
+    item: MenuItem,
+    selectedOptions: Set<string> | undefined
+  ) => {
+    return cartItems.find(
+      (cartItem) =>
+        cartItem.item.id === item.id &&
+        areOptionsEqual(cartItem.selectedOptions, selectedOptions)
+    );
+  };
+
+  const updateCartItemQuantity = (
+    cartItems: CartItem[],
+    existingItem: CartItem,
+    quantity: number
+  ) => {
+    return cartItems.map((cartItem) =>
+      cartItem === existingItem
+        ? { ...cartItem, quantity: cartItem.quantity + quantity }
+        : cartItem
+    );
+  };
+
   const addToCart = ({ item, quantity, selectedOptions }: CartItem) => {
     if (quantity <= 0) return;
 
     setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(
-        (cartItem) =>
-          cartItem.item.id === item.id &&
-          areOptionsEqual(cartItem.selectedOptions, selectedOptions)
-      );
-
-      if (existingItemIndex >= 0) {
-        const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex] = {
-          ...updatedItems[existingItemIndex],
-          quantity: updatedItems[existingItemIndex].quantity + quantity,
-        };
-        return updatedItems;
-      }
-
-      return [...prevItems, { item, quantity, selectedOptions }];
+      const existingItem = findCartItem(prevItems, item, selectedOptions);
+      return existingItem
+        ? updateCartItemQuantity(prevItems, existingItem, quantity)
+        : [...prevItems, { item, quantity, selectedOptions }];
     });
   };
 
