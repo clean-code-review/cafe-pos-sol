@@ -1,0 +1,37 @@
+import { _1분, _3분 } from '@saul-atomrigs/hangeul';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getMenuAPI, type Category, type MenuItem } from '~/remotes';
+import { CATEGORY, KOR_CATEGORY } from './constants';
+import { QUERY_KEYS } from '~/mocks/constants';
+
+export interface MenuSection {
+  title: string;
+  items: MenuItem[];
+}
+
+export const useMenuQuery = () =>
+  useSuspenseQuery({
+    queryKey: [QUERY_KEYS.MENU],
+    queryFn: getMenuAPI,
+    gcTime: _1분,
+    staleTime: _3분,
+  });
+
+export const useMenuSection = (category?: Category) => {
+  const { data: menuItems } = useMenuQuery();
+  const filteredItems = category
+    ? menuItems.filter((item) => item.category === category)
+    : menuItems;
+
+  let title = KOR_CATEGORY.ALL;
+  if (category) {
+    title =
+      category === CATEGORY.BEVERAGE
+        ? KOR_CATEGORY.BEVERAGE
+        : KOR_CATEGORY.DESSERT;
+  }
+
+  const menuSections = [{ title, items: filteredItems }];
+
+  return { menuSections };
+};
